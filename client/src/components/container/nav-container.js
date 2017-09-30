@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import Nav from '../layout/nav'
+import { fetchSections } from '../../actions/retail'
 
 const mapStateToProps = (state) => {
     return {
@@ -9,7 +10,8 @@ const mapStateToProps = (state) => {
 };
 
 const NavContainer = connect(
-    mapStateToProps
+    mapStateToProps,
+    { fetchSections }
 )(Nav)
 
 export default NavContainer

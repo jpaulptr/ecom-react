@@ -6,77 +6,17 @@ import {
     GET_ITEM_FAILURE,
     GET_ORDERS,
     GET_ORDERS_SUCCESS,
-    GET_ORDERS_FAILURE
+    GET_ORDERS_FAILURE,
+    GET_SECTIONS,
+    GET_SECTIONS_SUCCESS,
+    GET_SECTIONS_FAILURE,
 } from '../actions/retail'
 
 const initialState = {
     processState: '',
-    sections: [{
-        id: 'womens',
-        title: 'Women\'s',
-        description: 'The best in clothing',
-        items: [
-            {
-                id: '1',
-                description: 'Shoe 1',
-                caption: 'New shoe',
-                imageUrl: ''
-            },
-            {
-                id: '2',
-                description: 'Shoe 2',
-                caption: 'New shoe 2',
-                imageUrl: ''
-            },
-            {
-                id: '123',
-                description: 'Shoe 123',
-                caption: 'New shoe 124',
-                imageUrl: ''
-            }
-        ]
-    },
-    {
-        id: 'mens',
-        title: 'Men\'s',
-        description: 'Summer sale is here',
-        items: [
-            {
-                id: '3',
-                description: 'Shoe',
-                caption: 'New shoe',
-                imageUrl: ''
-            },
-            {
-                id: '4',
-                description: 'Three Button Suit',
-                caption: 'Latest in 3 buttons',
-                imageUrl: ''
-            }
-        ]
-    },
-    {
-        id: 'home',
-        title: 'Home Furnishings',
-        description: 'Create your ideal home',
-        items: [
-            {
-                id: '5',
-                description: 'Jones Sofa',
-                caption: 'Comfortable red leather sofa',
-                imageUrl: ''
-            },
-            {
-                id: '6',
-                description: 'Wing Back Chair',
-                caption: 'Relax in style',
-                imageUrl: ''
-            }
-
-        ]
-    }],
+    sections: [],
     items: [],
-    orders: [],
+    orders: []
 }
 
 function app(state = initialState, action) {
@@ -97,6 +37,12 @@ function app(state = initialState, action) {
             return Object.assign({}, state, { requestingOrders: false, orders: action.orders })
         case GET_ORDERS_FAILURE:
             return Object.assign({}, state, { requestingOrders: false })
+        case GET_SECTIONS:
+            return Object.assign({}, state, { requestingSections: true })
+        case GET_SECTIONS_SUCCESS:
+            return Object.assign({}, state, { requestingSections: false, sections: action.sections })
+        case GET_SECTIONS_FAILURE:
+            return Object.assign({}, state, { requestingSections: false })
         default:
             return state
     }

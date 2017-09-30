@@ -20,7 +20,7 @@ class OrdersContainer extends Component {
   render() {
     return (
       <div>
-        {this.props.orders.map((element) => <Orders {...element} key={element.id}/>)}
+        {this.props.orders.map((element) => <Orders {...element} key={element.id} />)}
       </div>
     );
   }
@@ -28,9 +28,9 @@ class OrdersContainer extends Component {
 
 OrdersContainer.propTypes = {
   fetchAllOrders: PropTypes.func.required,
-  orders: PropTypes.arrayOf({
-      id: PropTypes.number.required,
-  })
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.required,
+  }))
 };
 
 const OrdersContainerWraper = connect(

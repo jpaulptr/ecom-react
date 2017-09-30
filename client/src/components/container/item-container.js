@@ -19,7 +19,7 @@ class ContainerItem extends Component {
 
   render() {
     return (
-      <Item {...this.props} />
+      this.props.id ? <Item {...this.props} /> : null
     );
   }
 }

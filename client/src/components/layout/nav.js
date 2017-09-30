@@ -5,16 +5,21 @@ import { Link } from 'react-router-dom';
 class Nav extends Component {
     constructor(props) {
         super(props);
- 
+
         this.state = {
             isLoggedIn: props.isLoggedIn,
         }
+    }
+    componentWillMount() {
+        this.props.fetchSections();
     }
 
     componentWillReceiveProps(nextProps) {
         this.state = {
             isLoggedIn: nextProps.isLoggedIn,
         }
+
+        this.props.fetchSections();
     }
 
     render() {
@@ -29,7 +34,7 @@ class Nav extends Component {
                     }
                     <li><Link to={'/cart'}>Cart</Link></li>
                     <li><Link to={'/my-account'}>My Account</Link></li>
-                               {
+                    {
                         this.state.isLoggedIn ?
                             <li><Link to={'/orders'}>Orders</Link></li>
                             : null
@@ -42,10 +47,11 @@ class Nav extends Component {
 }
 
 Nav.propTypes = {
-    sections: PropTypes.arrayOf({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-    }).isRequired,
+    sections: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+        })).isRequired,
 };
 
 export default Nav;

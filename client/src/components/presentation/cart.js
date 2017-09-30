@@ -23,11 +23,11 @@ const Cart = (props) =>
     )
 
 Cart.propTypes = {
-    cart: PropTypes.arrayOf({
+    cart: PropTypes.arrayOf(PropTypes.shape({
         description: PropTypes.shape.isRequired,
         price: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
-    }).isRequired,
+    })).isRequired,
     clickHandler: PropTypes.func.isRequired,
 };
 

@@ -1,3 +1,5 @@
+const apiEndPoint = 'http://localhost:8000/';
+
 export const DISPLAY_ITEM = 'DISPLAY_ITEM';
 export const DISPLAY_SECTION = 'DISPLAY_SECTION';
 export const ADD_ITEM_TO_CART = 'ADD_ITEM';
@@ -11,11 +13,15 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
 export const GET_ORDERS_FAILURE = 'GET_ORDERS_FAILURE';
 
+export const GET_SECTIONS = 'GET_SECTIONS';
+export const GET_SECTIONS_SUCCESS = 'GET_SECTIONS_SUCCESS';
+export const GET_SECTIONS_FAILURE = 'GET_SECTIONS_FAILURE';
+
 export function displayItem(id) {
   return { type: DISPLAY_ITEM, id }
 }
 
-export function displaySectionm(id) {
+export function displaySection(id) {
   return { type: DISPLAY_SECTION, id }
 }
 
@@ -39,8 +45,8 @@ export function getItemFailure(id) {
   return { type: GET_ITEM_FAILURE, id }
 }
 
-export function getOrders(userid) {
-  return { type: GET_ORDERS, userid }
+export function getOrders(userId) {
+  return { type: GET_ORDERS, userId }
 }
 
 export function getOrderSuccess(orders) {
@@ -51,6 +57,18 @@ export function getOrderError(error) {
   return { type: GET_ORDERS_FAILURE, error }
 }
 
+export function getSections() {
+  return { type: GET_SECTIONS }
+}
+
+export function getSectionsSuccess(sections) {
+  return { type: GET_SECTIONS_SUCCESS, sections }
+}
+
+export function getSectionsError(error) {
+  return { type: GET_SECTIONS_FAILURE, error }
+}
+
 // Get an item
 export function fetchItem(id) {
   // Thunk middleware will handle this...
@@ -59,7 +77,7 @@ export function fetchItem(id) {
     // Set the state of the request
     dispatch(getItem(id));
 
-    fetch(`http://localhost:8000/items/${id}`, { method: 'get' }).then((result) => {
+    fetch(`${apiEndPoint}items/${id}`, { method: 'get' }).then((result) => {
       return result.json();
     }).then((result) => {
       dispatch(getItemSuccess(result.item))
@@ -87,14 +105,14 @@ export const fetchItemIfNeeded = (id) => (dispatch, getState) => {
 };
 
 
-//get orders
+// Get orders
 export const getAllOrders = (userid) => {
   // Thunk middleware will handle this...
   return function (dispatch) {
     // Set the state of the request
     dispatch(getOrders(userid));
 
-    fetch(`http://localhost:8000/orders/user/${userid}`, { method: 'get' }).then((result) => {
+    fetch(`${apiEndPoint}orders/user/${userid}`, { method: 'get' }).then((result) => {
       return result.json();
     }).then((result) => {
       dispatch(getOrderSuccess(result.orders))
@@ -110,4 +128,30 @@ export const fetchAllOrders = () => (dispatch, getState) => {
   if (state.app.requestingOrders) {
     return Promise.resolve();
   }
-  return dispatch(getAllOrders(state.authentication.user.id));}
+  return dispatch(getAllOrders(state.authentication.user.id));
+}
+
+// Get Sections
+export const getAllSections = () => {
+  return function (dispatch) {
+    // Set the state of the request
+    dispatch(getSections());
+
+    fetch(`${apiEndPoint}sections/`, { method: 'get' }).then((result) => {
+      return result.json();
+    }).then((result) => {
+      dispatch(getSectionsSuccess(result.section))
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+}
+
+export const fetchSections = () => (dispatch, getState) => {
+  const state = getState();
+
+  if (state.app.sections.length > 0) {
+    return Promise.resolve(state.app.sections);
+  }
+  return dispatch(getAllSections());
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const orderItems = (props) =>
     (
@@ -9,7 +10,7 @@ const orderItems = (props) =>
                 props.items.map(element => {
                     return (
                         <div key={element.itemNumber}>
-                            <div>{element.description} <span>code: {element.itemNumber} </span></div>
+                            <div><Link to={`/item/${element.itemNumber}`}>{element.description} </Link> <span>code: {element.itemNumber} </span></div>
                             <div>count: {element.number}</div>
                             <div>price: {element.price}</div>
                             <div>total: {element.total}</div>
@@ -24,13 +25,14 @@ const orderItems = (props) =>
 orderItems.propTypes = {
     date: PropTypes.string.required,
     total: PropTypes.number.required,
-    items: PropTypes.arrayOf({
-        itemNumber: PropTypes.number.required,
-        description: PropTypes.string.required,
-        number: PropTypes.number.required,
-        price: PropTypes.number.required,
-        total: PropTypes.number.required,
-    })
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            itemNumber: PropTypes.number.required,
+            description: PropTypes.string.required,
+            number: PropTypes.number.required,
+            price: PropTypes.number.required,
+            total: PropTypes.number.required,
+        }))
 };
 
 export default orderItems;
