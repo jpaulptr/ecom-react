@@ -6,6 +6,7 @@ const cors = require('cors');
 const PORT_NUMBER = 8000;
 const Console = console;
 
+// helmet js is a better choice for production
 app.use(cors({
   "origin": "*",
   "methods": "GET,PUT,POST",
@@ -16,14 +17,14 @@ app.use(cors({
 // parse application/json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(nocache);
 
-// setup cors manually
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*'); // should really be more targeted
-//     res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, OPTIONS')
-//     res.setHeader('Access-Control-Allow-Headers', 'content-type') // critical if you want to set the content type in the client
-//     next();
-// });
+function nocache(req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next();
+  }
 
 const items = require('./routes/items');
 const sections = require('./routes/sections');
