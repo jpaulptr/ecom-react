@@ -1,41 +1,10 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchItemIfNeeded } from '../../actions/retail'
-import Item from '../layout/item'
-import PropTypes from 'prop-types';
+import ContainerItem from '../presentation/container-item'
+import { getItemsById } from '../../reducers/state-mappers/retail'
 
-const mapStateToProps = (state, props) =>
-  state.app.items.find((element) => element.id === props.match.params.id) || {};
+const mapStateToProps = (state, props) => getItemsById(state, props.match.params.id);
 
-// A container component to handle the data lookup from the store/server
-class ContainerItem extends Component {
-  componentWillMount() {
-    this.props.fetchItemIfNeeded(this.props.match.params.id);
-  }
-
-  componentWillReceiveProps() {
-    this.props.fetchItemIfNeeded(this.props.match.params.id);
-  }
-
-  render() {
-    return (
-      this.props.id ? <Item {...this.props} /> : null
-    );
-  }
-}
-
-ContainerItem.propTypes = {
-  fetchItemIfNeeded: PropTypes.func.isRequired,
-  match: PropTypes.shape(
-    {
-      params: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      })
-    }
-  ).isRequired,
-}
-
-// Bind the props and the action creator to the container.
 const VisibleItem = connect(
   mapStateToProps,
   { fetchItemIfNeeded }

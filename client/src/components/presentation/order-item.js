@@ -23,8 +23,8 @@ const orderItems = (props) =>
     );
 
 orderItems.propTypes = {
-    date: PropTypes.string.required,
-    total: PropTypes.number.required,
+    date: PropTypes.string.isRequired,
+    total: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             itemNumber: PropTypes.number.required,

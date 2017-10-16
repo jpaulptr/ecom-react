@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
 import CartCounter from '../presentation/cart-counter'
+import { getCartCount } from '../../reducers/state-mappers/cart'
 
 const mapStateToProps = (state) => {
-  const itemCount = state.cart.cart.reduce((sum, element) => 
-    sum += element.count
-  , 0);
+  const itemCount = getCartCount(state);
 
   return  {itemCount};  
 };

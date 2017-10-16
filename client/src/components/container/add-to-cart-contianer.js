@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
-
 import CartButton from '../presentation/cart-button.js';
-
 import {addItemToCart} from '../../actions/cart';
+import { getItemsById } from '../../reducers/state-mappers/retail'
 
-const mapStateToProps = (state, props) => 
-  state.app.items.find((element) => element.id ===props.id)
+const mapStateToProps = (state, props) => getItemsById(state, props.id)
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

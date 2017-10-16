@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import Cart from '../presentation/cart'
 import {removeItemFromCart} from '../../actions/cart';
+import { getItemsById } from '../../reducers/state-mappers/retail'
+import { getCart } from '../../reducers/state-mappers/cart'
 
 const mapStateToProps = (state) => {
-  const items = state.cart.cart.map((element) => {
+  const items = getCart(state).map((element) => {
       return {
         ...element,
-        ...state.app.items.find((ele) => element.id === ele.id)
+        ...getItemsById(state, element.id)
       }
   });
 

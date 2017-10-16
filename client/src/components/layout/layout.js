@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PrivateRoute from '../container/private-route'
+import PrivateRoute from '../layout/private-route'
 
 // react router
 // This particular use of history is to get around a bug.

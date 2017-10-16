@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
 import Nav from '../layout/nav'
 import { fetchSections } from '../../actions/retail'
+import { isLoggedIn } from '../../reducers/state-mappers/authentication'
+import { getSections } from '../../reducers/state-mappers/retail'
 
 const mapStateToProps = (state) => {
     return {
-        sections: state.app.sections,
-        isLoggedIn: state.authentication.isLoggedIn,
+        sections: getSections(state),
+        isLoggedIn: isLoggedIn(state),
     };
 };
 
