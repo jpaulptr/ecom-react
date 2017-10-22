@@ -3,6 +3,13 @@ A simple shoping site built with react js.
 
 ## Running the app
 
+to run the cpompleted app 
+
+```
+cd ./complete-example
+```
+
+
 To run the client:
 
 ```
