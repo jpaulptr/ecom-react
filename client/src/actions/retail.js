@@ -1,3 +1,6 @@
+import { getUserToken } from '../reducers/state-mappers/authentication';
+import { ErrorLogin } from './authentication';
+import { authenticatedGET } from "../api/api";
 const apiEndPoint = 'http://localhost:8000/';
 
 export const DISPLAY_ITEM = 'DISPLAY_ITEM';
@@ -78,7 +81,11 @@ export function fetchItem(id) {
     dispatch(getItem(id));
 
     fetch(`${apiEndPoint}items/${id}`, { method: 'get' }).then((result) => {
-      return result.json();
+      if(result.status === 200){
+        return result.json();
+      }
+
+      return Promise.reject({result});
     }).then((result) => {
       dispatch(getItemSuccess(result.item))
     }).catch((error) => {
@@ -106,18 +113,23 @@ export const fetchItemIfNeeded = (id) => (dispatch, getState) => {
 
 
 // Get orders
-export const getAllOrders = (userid) => {
+export const getAllOrders = (userid, token) => {
   // Thunk middleware will handle this...
   return function (dispatch) {
     // Set the state of the request
     dispatch(getOrders(userid));
 
-    fetch(`${apiEndPoint}orders/user/${userid}`, { method: 'get' }).then((result) => {
-      return result.json();
-    }).then((result) => {
+    authenticatedGET(`${apiEndPoint}orders/user/${userid}`, token)
+    .then((result) => {
       dispatch(getOrderSuccess(result.orders))
     }).catch((error) => {
       console.log(error)
+      if(error.result){
+        if(error.result.status === 401){
+          dispatch(ErrorLogin({ isLoggedIn: false, error }))
+          dispatch(getOrderError(error));
+        }
+      }
     });
   }
 }
@@ -128,7 +140,7 @@ export const fetchAllOrders = () => (dispatch, getState) => {
   if (state.app.requestingOrders) {
     return Promise.resolve();
   }
-  return dispatch(getAllOrders(state.authentication.user.id));
+  return dispatch(getAllOrders(state.authentication.user.id, getUserToken(state)));
 }
 
 // Get Sections

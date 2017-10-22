@@ -13,6 +13,8 @@
     "redux": "^3.7.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
+    "redux-storage": "^4.1.2",
+    "redux-storage-engine-sessionstorage": "^1.0.2",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {

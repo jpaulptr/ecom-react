@@ -2,9 +2,11 @@ const express = require('express');
 const app = express(); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const session = require('./session-store');
 const PORT_NUMBER = 8000;
 const Console = console;
+
+
 
 // helmet js is a better choice for production
 app.use(cors({
@@ -26,14 +28,25 @@ function nocache(req, res, next) {
     next();
   }
 
+  app.use((req, res, next) => {
+      // this should be handled in a more scalable way   
+    if(req.path.indexOf('orders') > -1) {
+        if(!session.checkSession(req.headers['x-token'])){
+            res.status(401).send({});
+            return;
+        } 
+    }
+    next();
+  })
+
 const items = require('./routes/items');
 const sections = require('./routes/sections');
-const authenticatiion = require('./routes/authentication');
+const authentication = require('./routes/authentication');
 const orders = require('./routes/orders');
 
 app.use('/items/', items);
 app.use('/sections/', sections);
-app.use('/authentication/', authenticatiion);
+app.use('/authentication/', authentication);
 app.use('/orders/', orders);
 
 app.get('/health', (req, res) =>{
