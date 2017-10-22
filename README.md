@@ -3,7 +3,7 @@ A simple shoping site built with react js.
 
 ## Running the app
 
-to run the cpompleted app 
+to run the completed app 
 
 ```
 cd ./complete-example
