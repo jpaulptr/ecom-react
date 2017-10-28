@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Nav from '../container/nav-container';
 import CartCountContainer from '../container/cart-counter-container'
+import LogoutButtonContainer from '../container/logout-button-container'
 
 class Header extends Component {
     render() {
@@ -11,6 +12,7 @@ class Header extends Component {
                 <Link to='/'> <div> Logo</div></Link>
                 <Nav/>
                 <CartCountContainer />
+                <LogoutButtonContainer />
             </header>
         )
     }

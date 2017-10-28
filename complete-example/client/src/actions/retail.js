@@ -1,7 +1,7 @@
-import { getUserToken } from '../reducers/state-mappers/authentication';
+import { getUserToken, getUserId } from '../reducers/state-mappers/authentication';
+import { getSections as getSectionsMapper } from '../reducers/state-mappers/retail';
 import { ErrorLogin } from './authentication';
-import { authenticatedGET } from "../api/api";
-const apiEndPoint = 'http://localhost:8000/';
+import { authenticatedGET, unauthenticatedGET } from "../api/api";
 
 export const DISPLAY_ITEM = 'DISPLAY_ITEM';
 export const DISPLAY_SECTION = 'DISPLAY_SECTION';
@@ -26,14 +26,6 @@ export function displayItem(id) {
 
 export function displaySection(id) {
   return { type: DISPLAY_SECTION, id }
-}
-
-export function addItemToCart(id, count) {
-  return { type: ADD_ITEM_TO_CART, id, count }
-}
-
-export function removeItemFromCart(id, count) {
-  return { type: REMOVE_ITEM_FROM_CART, id, count }
 }
 
 export function getItem(id) {
@@ -72,21 +64,12 @@ export function getSectionsError(error) {
   return { type: GET_SECTIONS_FAILURE, error }
 }
 
-// Get an item
 export function fetchItem(id) {
-  // Thunk middleware will handle this...
   return function (dispatch) {
 
-    // Set the state of the request
     dispatch(getItem(id));
 
-    fetch(`${apiEndPoint}items/${id}`, { method: 'get' }).then((result) => {
-      if(result.status === 200){
-        return result.json();
-      }
-
-      return Promise.reject({result});
-    }).then((result) => {
+    unauthenticatedGET(`items/${id}`).then((result) => {
       dispatch(getItemSuccess(result.item))
     }).catch((error) => {
       console.log(error)
@@ -119,18 +102,17 @@ export const getAllOrders = (userid, token) => {
     // Set the state of the request
     dispatch(getOrders(userid));
 
-    authenticatedGET(`${apiEndPoint}orders/user/${userid}`, token)
-    .then((result) => {
-      dispatch(getOrderSuccess(result.orders))
-    }).catch((error) => {
-      console.log(error)
-      if(error.result){
-        if(error.result.status === 401){
-          dispatch(ErrorLogin({ isLoggedIn: false, error }))
-          dispatch(getOrderError(error));
+    authenticatedGET(`orders/user/${userid}`, token)
+      .then((result) => {
+        dispatch(getOrderSuccess(result.orders))
+      }).catch((error) => {
+        dispatch(getOrderError(error));
+        if (error.result) {
+          if (error.result.status === 401) {
+            dispatch(ErrorLogin({ isLoggedIn: false, error }))
+          }
         }
-      }
-    });
+      });
   }
 }
 
@@ -140,7 +122,7 @@ export const fetchAllOrders = () => (dispatch, getState) => {
   if (state.app.requestingOrders) {
     return Promise.resolve();
   }
-  return dispatch(getAllOrders(state.authentication.user.id, getUserToken(state)));
+  return dispatch(getAllOrders(getUserId(state), getUserToken(state)));
 }
 
 // Get Sections
@@ -149,9 +131,7 @@ export const getAllSections = () => {
     // Set the state of the request
     dispatch(getSections());
 
-    fetch(`${apiEndPoint}sections/`, { method: 'get' }).then((result) => {
-      return result.json();
-    }).then((result) => {
+    unauthenticatedGET('sections/').then((result) => {
       dispatch(getSectionsSuccess(result.section))
     }).catch((error) => {
       console.log(error)
@@ -163,7 +143,7 @@ export const fetchSections = () => (dispatch, getState) => {
   const state = getState();
 
   if (state.app.sections.length > 0) {
-    return Promise.resolve(state.app.sections);
+    return Promise.resolve(getSectionsMapper(state));
   }
   return dispatch(getAllSections());
 }

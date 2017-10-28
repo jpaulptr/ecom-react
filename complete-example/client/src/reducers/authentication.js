@@ -2,6 +2,7 @@ import {
     LOGIN_BEGIN,
     LOGIN_COMPLETE,
     LOGIN_ERROR,
+    LOGOUT,
 } from '../actions/authentication';
 
 const initialState = {
@@ -18,6 +19,8 @@ function app(state = initialState, action) {
             return endLogin(state,action);
         case LOGIN_ERROR:
             return errorLogin(state, action);
+        case LOGOUT:
+            return logout(state, action);
         default:
             return state
     }
@@ -38,5 +41,11 @@ const endLogin = (state, action) => Object.assign({}, state, {
 
 const errorLogin =(state, action) => Object.assign({}, state, {
     isLoggingIn: false,
+    isLoggedIn: false,
+});
+
+const logout = (state, action) => Object.assign({}, state, {
+    isLoggingIn: false,
+    user: null,
     isLoggedIn: false,
 });

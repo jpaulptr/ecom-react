@@ -38,7 +38,7 @@ class Layout extends Component {
     render() {
         return (
             <div>                                
-                <Header/>
+                <Header isLoggedIn={this.state.isLoggedIn}/>
                 <main>
                     <Switch>
                         {<Route exact path='/' component={Index} />}
