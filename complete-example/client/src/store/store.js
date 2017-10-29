@@ -11,7 +11,7 @@ import retail from '../reducers/retail';
 import cart from '../reducers/cart';
 import authentication from '../reducers/authentication';
 
-const actionBlackList = ['GET_ITEM', 'GET_ITEM_SUCCESS', 'GET_ITEM_FAILURE', 'GET_ORDERS', 'GET_ORDERS_SUCCESS', 'GET_ORDERS_FAILURE', 'GET_SECTIONS', 'GET_SECTIONS_FAILURE', 'GET_SECTIONS_SUCCESS'];
+const actionBlackList = ['ADD_SHIPPING_PAYMENT_INFORMATION', 'ORDER_IN_PROCESS', 'ORDER_COMPLETE', 'ORDER_ERROR', 'GET_ITEM', 'GET_ITEM_SUCCESS', 'GET_ITEM_FAILURE', 'GET_ORDERS', 'GET_ORDERS_SUCCESS', 'GET_ORDERS_FAILURE', 'GET_SECTIONS', 'GET_SECTIONS_FAILURE', 'GET_SECTIONS_SUCCESS'];
 
 const combinedReducers = combineReducers({
   routing: routerReducer,
@@ -39,5 +39,5 @@ load(store);
 // Notice that our load function will return a promise that can also be used
 // to respond to the restore event.
 load(store)
-    .then((newState) => console.log('Loaded state:', newState))
-    .catch(() => console.log('Failed to load previous state'));
+  .then((newState) => console.log('Loaded state:', newState))
+  .catch(() => console.log('Failed to load previous state'));

@@ -13,8 +13,8 @@ import Index from './index.js';
 import VisibleItem from '../container/item-container';
 import VisibleSection from '../container/section-container';
 import Cart from '../container/cart-container';
-import Header from './header';
-import Footer from './footer';
+import Header from '../presentation/header';
+import Footer from '../presentation/footer';
 import LogIn from './login'
 import MyAccount from './my-account'
 import Orders from './orders'

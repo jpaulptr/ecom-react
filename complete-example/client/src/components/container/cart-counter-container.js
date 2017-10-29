@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import CartCounter from '../presentation/cart-counter'
+import CartCounter from '../presentation/cart/cart-counter'
 import { getCartCount } from '../../reducers/state-mappers/cart'
 
 const mapStateToProps = (state) => {

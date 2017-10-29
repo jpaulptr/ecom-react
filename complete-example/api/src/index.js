@@ -31,6 +31,8 @@ function nocache(req, res, next) {
   app.use((req, res, next) => {
       // this should be handled in a more scalable way   
     if(req.path.indexOf('orders') > -1) {
+        console.log('token', req.headers['x-token'])
+        console.log('has token', session.checkSession(req.headers['x-token']))
         if(!session.checkSession(req.headers['x-token'])){
             res.status(401).send({});
             return;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CartButton from '../presentation/cart-button.js';
+import CartButton from '../presentation/cart/cart-button.js';
 import {addItemToCart} from '../../actions/cart';
 import { getItemsById } from '../../reducers/state-mappers/retail'
 

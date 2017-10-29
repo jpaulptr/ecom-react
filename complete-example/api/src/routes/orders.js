@@ -19,4 +19,20 @@ router.get('/user/:id', (req, res) => {
     }).end();
 })
 
+router.put('/:id', (req, res) => {
+    console.log( req.params.id)
+    
+    dataorders.orders.push(    {
+        id: 2,
+        userid: req.params.id,
+        date: new Date(),
+    });
+
+
+    res.send({
+        success: true,
+        confirmationNumber: Math.random(),
+    }).end();
+})
+
 module.exports = router;

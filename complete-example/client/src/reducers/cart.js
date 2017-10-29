@@ -1,6 +1,10 @@
 import {
     REMOVE_ITEM_FROM_CART,
     ADD_ITEM_TO_CART,
+    ADD_SHIPPING_PAYMENT_INFORMATION,
+    ORDER_IN_PROCESS,
+    ORDER_COMPLETE,
+    ORDER_FAILED,
 } from '../actions/cart'
 
 const initialState = {
@@ -14,12 +18,42 @@ function app(state = initialState, action) {
             return addToCart(state, action);
         case REMOVE_ITEM_FROM_CART:
             return removeFromCart(state, action);
+        case ADD_SHIPPING_PAYMENT_INFORMATION:
+            return addShippingAndPayment(state, action);
+        case ORDER_IN_PROCESS:
+            return orderInProcess(state, action);
+        case ORDER_COMPLETE:
+            return orderComplete(state, action);
+        case ORDER_FAILED:
+            return orderError(state, action);
         default:
             return state
     }
 }
 
 export default app;
+
+const addShippingAndPayment = (state, action) => Object.assign({}, state, {
+    address: action.address,
+    payment: action.payment,
+})
+
+const orderInProcess = (state, action) => Object.assign({}, state, {
+    orderInProcess: true,
+});
+
+const orderComplete = (state, action) => Object.assign({}, state, {
+    orderInProcess: false,
+    cart: [],
+    address: null,
+    payment: null,
+    confirmationNumber: action.orderConfirmation,
+});
+
+const orderError = (state, action) => Object.assign({}, state, {
+    orderInProcess: false,
+    payment: null,
+});
 
 const removeFromCart = (state, action) => {
     const newState = Object.assign({}, state, {
