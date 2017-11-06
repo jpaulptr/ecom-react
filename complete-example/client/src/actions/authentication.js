@@ -1,4 +1,4 @@
-import { unauthenticatedPUT } from "../api/api";
+import { PUT } from "../api/api";
 export const LOGIN_BEGIN = 'LOGIN_BEGIN';
 export const LOGIN_COMPLETE = 'LOGIN_COMPLETE';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
@@ -34,7 +34,7 @@ export const ErrorLogin = (error) => {
 export const Login = (user) => (dispatch) => {
     dispatch(BeginLogin(user));
 
-    unauthenticatedPUT('authentication/login',
+    PUT('authentication/login',
         JSON.stringify({
             username: user.userName,
             password: user.password,

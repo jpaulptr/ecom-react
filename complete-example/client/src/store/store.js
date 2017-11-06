@@ -41,3 +41,5 @@ load(store);
 load(store)
   .then((newState) => console.log('Loaded state:', newState))
   .catch(() => console.log('Failed to load previous state'));
+
+export const getStore = () => store.getState();

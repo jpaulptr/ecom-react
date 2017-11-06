@@ -1,16 +1,18 @@
+import { getStore } from '../store/store'; //perhaps too tightly coupled..
+import { getUserToken } from '../reducers/state-mappers/authentication';
+
 const apiEndPoint = 'http://192.168.222.134:8000/';
 const getUrl = path => `${apiEndPoint}${path}`;
 
-export const authenticatedGET = (path, token) => {
+export const GET = (path) => {
   const headers = new Headers();
-  headers.append('x-token', token);
-
+  setUpHeaderToken(headers);
   return fetch(getUrl(path), { method: 'get', headers }).then(resultHandler)
 }
 
-export const authenticatedPUT = (path, token, body) => {
+export const PUT = (path, body) => {
   const headers = new Headers();
-  headers.append('x-token', token);
+  setUpHeaderToken(headers);
   headers.append('Content-Type', 'application/json');
 
   return fetch(getUrl(path), {
@@ -21,23 +23,18 @@ export const authenticatedPUT = (path, token, body) => {
   }).then(resultHandler);
 }
 
-export const unauthenticatedGET = (path) =>
-  fetch(getUrl(path), { method: 'get' }).then(resultHandler);
-
-export const unauthenticatedPUT = (path, body) =>
-  fetch(getUrl(path), {
-    method: 'PUT',
-    mode: 'cors',
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    body
-  }).then(resultHandler);
-
 function resultHandler(result) {
   if (result.status === 200) {
     return result.json();
   }
 
   return Promise.reject({ result });
+}
+
+function setUpHeaderToken(headers) {
+  const token = getUserToken(getStore());
+
+  if (token) {
+    headers.append('x-token', token);
+  }
 }

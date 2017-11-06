@@ -1,5 +1,5 @@
-import { authenticatedPUT } from '../api/api'
-import { getUserId, getUserToken } from '../reducers/state-mappers/authentication';
+import { PUT } from '../api/api'
+import { getUserId } from '../reducers/state-mappers/authentication';
 import { getCart } from '../reducers/state-mappers/cart';
 
 export const ADD_ITEM_TO_CART = 'ADD_ITEM';
@@ -37,8 +37,7 @@ export function placeOrder(address, payment) {
 
     dispatch(sendOrder());
 
-    authenticatedPUT(`orders/${getUserId(state)}`,
-      getUserToken(state),
+    PUT(`orders/${getUserId(state)}`,
       {
         address,
         payment,

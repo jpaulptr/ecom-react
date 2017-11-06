@@ -1,7 +1,7 @@
-import { getUserToken, getUserId } from '../reducers/state-mappers/authentication';
+import { getUserId } from '../reducers/state-mappers/authentication';
 import { getSections as getSectionsMapper } from '../reducers/state-mappers/retail';
 import { ErrorLogin } from './authentication';
-import { authenticatedGET, unauthenticatedGET } from "../api/api";
+import { GET } from "../api/api";
 
 export const DISPLAY_ITEM = 'DISPLAY_ITEM';
 export const DISPLAY_SECTION = 'DISPLAY_SECTION';
@@ -69,7 +69,7 @@ export function fetchItem(id) {
 
     dispatch(getItem(id));
 
-    unauthenticatedGET(`items/${id}`).then((result) => {
+    GET(`items/${id}`).then((result) => {
       dispatch(getItemSuccess(result.item))
     }).catch((error) => {
       console.log(error)
@@ -96,13 +96,13 @@ export const fetchItemIfNeeded = (id) => (dispatch, getState) => {
 
 
 // Get orders
-export const getAllOrders = (userid, token) => {
+export const getAllOrders = (userid) => {
   // Thunk middleware will handle this...
   return function (dispatch) {
     // Set the state of the request
     dispatch(getOrders(userid));
 
-    authenticatedGET(`orders/user/${userid}`, token)
+    GET(`orders/user/${userid}`)
       .then((result) => {
         dispatch(getOrderSuccess(result.orders))
       }).catch((error) => {
@@ -122,7 +122,7 @@ export const fetchAllOrders = () => (dispatch, getState) => {
   if (state.app.requestingOrders) {
     return Promise.resolve();
   }
-  return dispatch(getAllOrders(getUserId(state), getUserToken(state)));
+  return dispatch(getAllOrders(getUserId(state)));
 }
 
 // Get Sections
@@ -131,7 +131,7 @@ export const getAllSections = () => {
     // Set the state of the request
     dispatch(getSections());
 
-    unauthenticatedGET('sections/').then((result) => {
+    GET('sections/').then((result) => {
       dispatch(getSectionsSuccess(result.section))
     }).catch((error) => {
       console.log(error)
