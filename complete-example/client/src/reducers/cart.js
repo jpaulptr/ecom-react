@@ -47,7 +47,7 @@ const orderComplete = (state, action) => Object.assign({}, state, {
     cart: [],
     address: null,
     payment: null,
-    confirmationNumber: action.orderConfirmation,
+    confirmationNumber: action.confirmationNumber,
 });
 
 const orderError = (state, action) => Object.assign({}, state, {
@@ -81,7 +81,7 @@ const addToCart = (state, action) => {
         item.count += action.count;
     }
     else {
-        newState.cart.push(action);
+        newState.cart.push({id: action.id, count: action.count});
     }
 
     return newState;

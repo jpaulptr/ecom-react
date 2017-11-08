@@ -1,5 +1,6 @@
-import { getStore } from '../store/store'; //perhaps too tightly coupled..
+import { getStore, getDispatch } from '../store/store'; //perhaps too tightly coupled..
 import { getUserToken } from '../reducers/state-mappers/authentication';
+import { ErrorLogin } from '../actions/authentication';
 
 const apiEndPoint = 'http://192.168.222.134:8000/';
 const getUrl = path => `${apiEndPoint}${path}`;
@@ -19,13 +20,16 @@ export const PUT = (path, body) => {
     method: 'PUT',
     mode: 'cors',
     headers,
-    body
+    body: JSON.stringify(body),
   }).then(resultHandler);
 }
 
 function resultHandler(result) {
   if (result.status === 200) {
     return result.json();
+  } else if (result.status === 401) {
+    const val = getDispatch();
+    val.dispatch(ErrorLogin({ isLoggedIn: false, result }))
   }
 
   return Promise.reject({ result });
@@ -38,3 +42,4 @@ function setUpHeaderToken(headers) {
     headers.append('x-token', token);
   }
 }
+

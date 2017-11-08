@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
-import Cart from '../presentation/cart'
+import Cart from '../presentation/cart/cart'
 import {removeItemFromCart, addShippingAndPaymentInformation, placeOrder} from '../../actions/cart';
 import { getItemsById } from '../../reducers/state-mappers/retail'
-import { getCart } from '../../reducers/state-mappers/cart'
+import { getCart, getOrderConfirmation } from '../../reducers/state-mappers/cart'
 import { isLoggedIn } from '../../reducers/state-mappers/authentication'
 
 const mapStateToProps = (state) => {
   const items = getCart(state).map((element) => {
       return {
         ...element,
-        ...getItemsById(state, element.id)
+        ...getItemsById(state, element.id),
       }
   });
 
-  return  {cart: items, isLoggedIn: isLoggedIn(state)};  
+  return  {cart: items, isLoggedIn: isLoggedIn(state), confirmationNumber: getOrderConfirmation(state) };  
 };
 
 const mapDispatchToProps = (dispatch) => {

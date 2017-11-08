@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from './form-controls/button';
 
 class LogoutButton extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class LogoutButton extends Component {
         return (
             <div>
                 {
-                    this.state.isLoggedIn ? <button onClick={this.props.logoutHandler}>Log Out</button> :
+                    this.state.isLoggedIn ? <Button onClick={this.props.logoutHandler}>Log Out</Button> :
                         <Link to={'/my-account'} >Log In </Link>
                 }
             </div>

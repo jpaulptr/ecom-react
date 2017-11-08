@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Heading from '../presentation/headers/heading';
 import AddButtonContainer from '../container/add-to-cart-contianer';
 
 const Item = (props) =>
     (
         <div className='item'>
-            <h2 >{props.description}</h2>
+            <Heading level={2} >{props.description}</Heading>
             <div>{props.caption}</div>
             <div>{props.price}</div>
             <AddButtonContainer {...props} title={'Add to Cart'} />

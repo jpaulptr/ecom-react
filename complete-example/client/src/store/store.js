@@ -43,3 +43,4 @@ load(store)
   .catch(() => console.log('Failed to load previous state'));
 
 export const getStore = () => store.getState();
+export const getDispatch = () => store;

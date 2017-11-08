@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../layout/private-route'
 
-// react router
-// This particular use of history is to get around a bug.
-// import { createBrowserHistory } from 'history';
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import { syncHistoryWithStore } from 'react-router-redux';
-
 //Components
 import Index from './index.js';
 import VisibleItem from '../container/item-container';

@@ -1,3 +1,4 @@
+import Heading from '../presentation/headers/heading';
 const React = require('react');
 const PropTypes = require('prop-types')
 
@@ -10,8 +11,8 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <h1>Hi {this.props.title} {this.props.lastName}</h1>
-                <h2>{this.props.firstName} {this.props.lastName}</h2>
+                <Heading level={1}><i>Hi</i> {this.props.title} {this.props.lastName}</Heading>
+                <Heading level={2}>{this.props.firstName} {this.props.lastName}</Heading>
                 <div>
                     {this.props.bio}
                 </div>

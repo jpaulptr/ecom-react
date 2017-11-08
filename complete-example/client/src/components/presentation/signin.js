@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import Button from './form-controls/button';
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +53,8 @@ class SignIn extends Component {
                     <label htmlFor='password'> User Name:</label>
                     <input type='text' id='password' name='password' value={this.state.password} onChange={this.onChange} />
 
-                    <button> Log In </button>
+                    
+                    <Button> Log In </Button>
                     <Link to='forgot' > Forgot password?</Link>
                 </div>
 

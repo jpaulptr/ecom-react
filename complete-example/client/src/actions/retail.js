@@ -97,7 +97,6 @@ export const fetchItemIfNeeded = (id) => (dispatch, getState) => {
 
 // Get orders
 export const getAllOrders = (userid) => {
-  // Thunk middleware will handle this...
   return function (dispatch) {
     // Set the state of the request
     dispatch(getOrders(userid));
@@ -107,11 +106,6 @@ export const getAllOrders = (userid) => {
         dispatch(getOrderSuccess(result.orders))
       }).catch((error) => {
         dispatch(getOrderError(error));
-        if (error.result) {
-          if (error.result.status === 401) {
-            dispatch(ErrorLogin({ isLoggedIn: false, error }))
-          }
-        }
       });
   }
 }

@@ -44,7 +44,6 @@ export function placeOrder(address, payment) {
         cart: getCart(state)
       }).then((result) => {
         dispatch(orderComplete(result.confirmationNumber));
-
       }).catch((error) => {
         dispatch(orderError(error));
 

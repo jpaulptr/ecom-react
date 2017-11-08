@@ -1,6 +1,7 @@
+import Button from '../form-controls/button';
+import Input from '../form-controls/input';
 const React = require('react');
 const PropTypes = require('prop-types');
-
 
 class CartButton extends React.Component {
     constructor(props) {
@@ -27,10 +28,11 @@ class CartButton extends React.Component {
             <form onSubmit={this.clickHandler}>
                 {this.props.hideCount ?
                     null
-                    : <input type='number' name='itemcount' min='1' max='100' value={this.state.count} onChange={this.changeHandler} />
+                    : <Input type='number' name='itemcount' min='1' max='100' value={this.state.count} onChange={this.changeHandler}/>
 
                 }
-                <button>{this.props.title}</button>
+                
+                <Button>{this.props.title}</Button>
             </form>
         );
     }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dataitems = require('../data/items').items;
+const dataitems = require('../data/items');
 
 router.get('/:id', (req, res) => {
     console.log(req.params)

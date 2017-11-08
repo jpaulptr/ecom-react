@@ -42,10 +42,11 @@ const endLogin = (state, action) => Object.assign({}, state, {
 const errorLogin =(state, action) => Object.assign({}, state, {
     isLoggingIn: false,
     isLoggedIn: false,
+    user: null,
 });
 
 const logout = (state, action) => Object.assign({}, state, {
     isLoggingIn: false,
-    user: null,
     isLoggedIn: false,
+    user: null,
 });

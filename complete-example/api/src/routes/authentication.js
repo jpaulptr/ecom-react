@@ -14,7 +14,7 @@ router.put('/login', (req, res) => {
     const response = Object.assign({}, user);
     delete response.password;
 
-    user.token = session.addSession(user.id);
+    response.token = session.addSession(user.id);
     res.send({
         success: true,
         user: response

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartButton from './cart/cart-button';
-import Items from './cart/items';
-import { Link } from 'react-router-dom'
+import CartButton from './cart-button';
+import Items from './items';
+import { Link } from 'react-router-dom';
+import TextBox from '../form-controls/text-box';
+import Button from '../form-controls/button';
+import Heading from '../headers/heading';
 
 class Cart extends Component {
     constructor(props) {
@@ -62,40 +65,6 @@ class Cart extends Component {
         this.props.placeOrder(this.state.shipping, this.state.payment)
     }
 
-    render() {
-        return (
-            <div>
-                {this.state.initial ? this.renderItems() : null}
-                {!this.state.initial && !this.props.isLoggedIn ? this.renderLoginWarning() : null}
-                {this.state.address && this.props.isLoggedIn ? this.renderAddress() : null}
-                {this.state.review && this.props.isLoggedIn ? this.renderReview() : null}
-                {this.state.confirmation && this.props.isLoggedIn ? this.renderConfirmation() : null}
-            </div>
-        )
-    }
-
-    renderLoginWarning() {
-        return (
-            <div>
-                <h2>You must login </h2>
-                <Link to={'/login'}> Login </Link>
-            </div>
-        )
-    }
-
-    renderItems(disallowEdits) {
-        return (
-            <div>
-                <h2>Cart Items</h2>
-                {
-                    this.props.cart.length === 0 ? 'There is nothing in your cart yet' :
-                        this.props.cart.map((item) => (<Items {...item} disallowEdits={disallowEdits} clickHandler={this.props.removeItemFromCart} />))
-                }
-                {this.props.cart.length !== 0 && !disallowEdits ? <button onClick={this.setAddress}>Start Order</button> : null}
-            </div>
-        )
-    }
-
     shippingHandler(e) {
         const shipping = this.state.shipping;
         shipping[e.target.name] = e.target.value
@@ -119,33 +88,61 @@ class Cart extends Component {
 
     }
 
+    render() {
+        return (
+            <div>
+                {this.state.initial ? this.renderItems() : null}
+                {!this.state.initial && !this.props.isLoggedIn ? this.renderLoginWarning() : null}
+                {this.state.address && this.props.isLoggedIn ? this.renderAddress() : null}
+                {this.state.review && this.props.isLoggedIn ? this.renderReview() : null}
+                {this.state.confirmation && this.props.isLoggedIn ? this.renderConfirmation() : null}
+            </div>
+        )
+    }
+
+    renderLoginWarning() {
+        return (
+            <div>
+                <Heading level={2}>You must login</Heading>
+                <Link to={'/login'}> Login </Link>
+            </div>
+        )
+    }
+
+    renderItems(disallowEdits) {
+        return (
+            <div>
+                <Heading level={2}>Cart Items</Heading>
+                {
+                    this.props.cart.length === 0 ? 'There is nothing in your cart yet' :
+                        this.props.cart.map((item) => (<Items {...item} disallowEdits={disallowEdits} clickHandler={this.props.removeItemFromCart} />))
+                }
+                {this.props.cart.length !== 0 && !disallowEdits ? <Button onClick={this.setAddress}>Start Order</Button> : null}
+            </div>
+        )
+    }
+
     renderAddress() {
         return (
             <div>
-                <h2>Shipping Address</h2>
+                <Heading level={2}>Shipping Address</Heading>
                 <div>
-                    <label htmlFor="address">Address</label>
-                    <input type="text" id="address" name="address" value={this.state.shipping.address} onChange={this.shippingHandler} />
+                    <TextBox id={'address'} title={"Address"} value={this.state.shipping.address} changeHandler={this.shippingHandler} />
                 </div>
                 <div>
-                    <label htmlFor="city">City</label>
-                    <input type="text" id="city" name="city" value={this.state.shipping.city} onChange={this.shippingHandler} />
-                    <label htmlFor="state">State</label>
-                    <input type="text" id="state" name="state" value={this.state.shipping.state} onChange={this.shippingHandler} maxLength="2" minLength="2" required />
-                    <label htmlFor="zip">Zip</label>
-                    <input type="text" id="zip" name="zip" value={this.state.shipping.zip} onChange={this.shippingHandler} maxLength="10" required />
+                    <TextBox id={'city'} title={"City"} value={this.state.shipping.city} changeHandler={this.shippingHandler} />
+                    <TextBox id={'state'} title={"State"} value={this.state.shipping.state} changeHandler={this.shippingHandler} />
+                    <TextBox id={'zip'} title={"Zip"} value={this.state.shipping.zip} changeHandler={this.shippingHandler} />
                 </div>
-                <h2>Payment Details</h2>
+                <Heading level={2}>Payment Details</Heading>
                 <div>
-                    <label htmlFor="creditcard">Credit Card</label>
-                    <input type="text" id="creditcard" name="creditcard" value={this.state.payment.creditcard} onChange={this.paymentHandler} />
+                    <TextBox id={'creditcard'} title={"Credit Card"} value={this.state.payment.creditcard} changeHandler={this.paymentHandler} />
                 </div>
                 <div>
-                    <label htmlFor="expiration">Expiration Date</label>
-                    <input type="text" id="expiration" name="expiration" value={this.state.payment.expiration} onChange={this.paymentHandler} />
+                    <TextBox id={'expiration'} title={"Expiration Date"} value={this.state.payment.expiration} changeHandler={this.paymentHandler} />
                 </div>
-                <button onClick={this.setInitial}>Cancel</button>
-                <button disabled={!this.isShippingPaymentComplete()} onClick={this.setReview}>Review Order</button>
+                <Button onClick={this.setInitial}>Cancel</Button>
+                <Button disabled={!this.isShippingPaymentComplete()} onClick={this.setReview}>Review Order</Button>
             </div>
         )
     }
@@ -153,7 +150,8 @@ class Cart extends Component {
     renderReview() {
         return (
             <div>
-                <h2>Review Your Order</h2>
+                <Heading level={2}>Review Your Order</Heading>
+
                 {this.renderItems(true)}
                 <div>
                     <span>Address:</span> {this.state.shipping.address}
@@ -163,9 +161,9 @@ class Cart extends Component {
                     <span>State:</span> {this.state.shipping.state}
                     <span>Zip:</span> {this.state.shipping.zip}
                 </div>
-                <button onClick={this.setInitial}>Cancel</button>
-                <button onClick={this.setAddress}>Address and Payment</button>
-                <button onClick={this.setConfirmation}>Place Order</button>
+                <Button onClick={this.setInitial} >Cancel</Button>
+                <Button onClick={this.setAddress}>Address and Payment</Button>
+                <Button onClick={this.setConfirmation}>Place Order</Button>
             </div>
         )
     }
@@ -175,12 +173,12 @@ class Cart extends Component {
             <div>
                 {this.state.orderComplete ?
                     <div>
-                        <h2>Order Confirmation</h2>
-                        <h3>Order Complete </h3>
+                        <Heading level={2}>Order Confirmation</Heading>
+                        <Heading level={3}>Order Complete</Heading>
                         <div>Confirmation number: {this.state.confirmationNumber}</div>
                         <Link to={'/orders'} >Orders</Link>
                     </div>
-                    : <div><h3>Order Processing... </h3></div>
+                    : <div><Heading level={3}>Order Processing... </Heading></div>
                 }
             </div>
         )

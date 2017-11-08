@@ -35,10 +35,10 @@ export const Login = (user) => (dispatch) => {
     dispatch(BeginLogin(user));
 
     PUT('authentication/login',
-        JSON.stringify({
+        {
             username: user.userName,
             password: user.password,
-        })
+        }
     ).then((result) => {
         dispatch(CompleteLogin({ isLoggedIn: true, user: result.user }));
     }).catch((error) => {
