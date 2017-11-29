@@ -3,7 +3,7 @@ import Teaser from '../layout/teaser.js';
 import PropTypes from 'prop-types';
 
 class Section extends Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchSections();
     }
 

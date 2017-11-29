@@ -12,6 +12,7 @@ const initialState = {
 }
 
 function app(state = initialState, action) {
+    console.log(action)
     switch (action.type) {
         case LOGIN_BEGIN:
             return beginLogin(state,action);

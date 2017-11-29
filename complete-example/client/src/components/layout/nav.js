@@ -10,7 +10,7 @@ class Nav extends Component {
             isLoggedIn: props.isLoggedIn,
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchSections();
     }
 

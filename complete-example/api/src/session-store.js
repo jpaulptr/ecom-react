@@ -1,4 +1,6 @@
+const path = require('path');
 const randToken = require('rand-token');
+const config = require(path.resolve('./src/config/default.js')).defaults;
 const sessions = [];
 
 exports.checkSession = (token) => {
@@ -15,8 +17,8 @@ exports.checkSession = (token) => {
         
         const diff = temp - time;
 
-        console.log(diff > 1000 * 60 * 2)
-        if(diff > 1000 * 60 * 2){
+        console.log('time has expired', diff > config.authentication.timeOut)
+        if(diff > config.authentication.timeOut){
             return false;
         }
         session.time = new Date();

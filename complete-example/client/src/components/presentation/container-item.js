@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // A container component to handle the data lookup from the store/server
 class ContainerItem extends Component {
-    componentWillMount() {
+    componentDidMount() {
       this.props.fetchItemIfNeeded(this.props.match.params.id);
     }
   

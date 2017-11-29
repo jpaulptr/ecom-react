@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-const PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
 class CartCounter extends Component {
     constructor(props) {

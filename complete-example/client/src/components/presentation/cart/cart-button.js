@@ -1,7 +1,7 @@
+import React from 'react';
+import PropTypes from'prop-types';
 import Button from '../form-controls/button';
 import Input from '../form-controls/input';
-const React = require('react');
-const PropTypes = require('prop-types');
 
 class CartButton extends React.Component {
     constructor(props) {

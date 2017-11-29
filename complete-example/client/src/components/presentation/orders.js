@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Orders from '../presentation/order-item';
 
 class OrdersContainer extends Component {
-    componentWillMount() {
+    componentDidMount() {
       this.props.fetchAllOrders();
     }
   
