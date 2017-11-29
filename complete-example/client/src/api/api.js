@@ -2,7 +2,7 @@ import { getStore, getDispatch } from '../store/store'; //perhaps too tightly co
 import { getUserToken } from '../reducers/state-mappers/authentication';
 import { ErrorLogin } from '../actions/authentication';
 
-const apiEndPoint = 'http://192.168.222.134:8000/';
+const apiEndPoint = 'http://192.168.248.130:8000/';
 const getUrl = path => `${apiEndPoint}${path}`;
 
 export const GET = (path) => {

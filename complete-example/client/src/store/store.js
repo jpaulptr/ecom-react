@@ -29,7 +29,7 @@ const router = routerMiddleware(history);
 
 // Don't store the item's in session storage because prices can be volatile.
 const storageMiddleware = storage.createMiddleware(engine, actionBlackList);
-const createStoreWithMiddleware = applyMiddleware(router, thunk, logger, storageMiddleware)(createStore);
+const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(router, thunk, logger, storageMiddleware))(createStore);
 
 export const store = createStoreWithMiddleware(reducerWithStorage)//, composeWithDevTools(combinedMiddleware));
 

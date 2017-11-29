@@ -1,6 +1,5 @@
 import { getUserId } from '../reducers/state-mappers/authentication';
 import { getSections as getSectionsMapper } from '../reducers/state-mappers/retail';
-import { ErrorLogin } from './authentication';
 import { GET } from "../api/api";
 
 export const DISPLAY_ITEM = 'DISPLAY_ITEM';

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const headings = []
 const Heading = ({ level, children }) => {
     switch (level) {
         case 1:
