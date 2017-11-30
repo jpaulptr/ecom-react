@@ -1,16 +1,24 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import Login from '../layout/login'
-import { isLoggedIn } from '../../reducers/state-mappers/authentication'
+import { Login as loginAction } from '../../actions/authentication'
 
 const mapStateToProps = (state) => {
     return {
         routing: state.routing,
-        isLoggedIn: isLoggedIn(state),
+        isLoggedIn: state.authentication.isLoggedIn,
+        hasLoginError: state.authentication.hasLoginError,
     };
-};
+}
 
-const LoginContainer = connect(
-    mapStateToProps
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (signInData) => dispatch(loginAction(signInData))
+    };
+}
+
+const VisibleLogin = connect(
+    mapStateToProps,
+    mapDispatchToProps
 )(Login)
 
-export default LoginContainer
+export default VisibleLogin;

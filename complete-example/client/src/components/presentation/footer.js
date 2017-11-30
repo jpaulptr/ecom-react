@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
  const Footer = () => (
      <footer>
-         <list>
+         <ul>
              <li><Link to={'/about/'}>About</Link></li>
              <li><Link to={'/contact/'}>Contact</Link></li>
-         </list>
+         </ul>
      </footer>
 )
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from './form-controls/button';
+import TextBox from './form-controls/text-box';
+
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -47,13 +49,13 @@ class SignIn extends Component {
         return (
             <form onSubmit={this.handleFormSubmit}>
                 <div>
-                    <label htmlFor='username'> User Name:</label>
-                    <input type='text' id='username' name='username' value={this.state.username} onChange={this.onChange} />
+                    <TextBox id={'username'} title={'User Name:'} value={this.state.username} changeHandler={this.onChange} />
 
-                    <label htmlFor='password'> User Name:</label>
-                    <input type='text' id='password' name='password' value={this.state.password} onChange={this.onChange} />
-
-                    
+                    <TextBox id={'password'} title={'Password:'} value={this.state.password} changeHandler={this.onChange} />
+                    {
+                        this.props.hasLoginError ?
+                        <div>Has an error</div> : null
+                    }
                     <Button> Log In </Button>
                     <Link to='forgot' > Forgot password?</Link>
                 </div>

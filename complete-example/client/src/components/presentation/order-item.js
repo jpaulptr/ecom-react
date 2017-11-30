@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Heading from './headers/heading';
 
 const orderItems = (props) =>
     (
         <div>
-            <h2>{props.date}</h2>
+            <Heading level={2}>{props.date}</Heading>
             {
                 props.items.map(element => {
                     return (

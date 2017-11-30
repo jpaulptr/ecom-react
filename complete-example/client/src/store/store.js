@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { logger } from 'redux-logger'
-import { composeWithDevTools } from 'redux-devtools-extension';
+//import { composeWithDevTools } from 'redux-devtools-extension';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-sessionstorage';
 import retail from '../reducers/retail';
@@ -29,7 +29,8 @@ const router = routerMiddleware(history);
 
 // Don't store the item's in session storage because prices can be volatile.
 const storageMiddleware = storage.createMiddleware(engine, actionBlackList);
-const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(router, thunk, logger, storageMiddleware))(createStore);
+//const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(router, thunk, logger, storageMiddleware))(createStore);
+const createStoreWithMiddleware = applyMiddleware(router, thunk, logger, storageMiddleware)(createStore);
 
 export const store = createStoreWithMiddleware(reducerWithStorage)//, composeWithDevTools(combinedMiddleware));
 

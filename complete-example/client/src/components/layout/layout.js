@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../layout/private-route'
 
@@ -9,46 +9,29 @@ import VisibleSection from '../container/section-container';
 import Cart from '../container/cart-container';
 import Header from '../presentation/header';
 import Footer from '../presentation/footer';
-import LogIn from './login'
+//import LogIn from './login'
+import LogInContainer from '../container/login-container';
 import MyAccount from './my-account'
 import Orders from './orders'
 
-class Layout extends Component {
+const Layout = (props) => (
+    <div>
+        <Header isLoggedIn={props.isLoggedIn} />
+        <main>
+            <Switch>
+                {<Route exact path='/' component={Index} />}
+                {<Route path='/about' component={Index} />}
+                {<Route path='/contact' component={Index} />}
+                {<Route path='/section/:id' component={VisibleSection} />}
+                {<Route path='/item/:id' component={VisibleItem} />}
+                {<Route path='/cart' component={Cart} />}
+                {<Route path='/login' component={LogInContainer} />}
+                {<PrivateRoute path='/my-account' component={MyAccount} isLoggedIn={props.isLoggedIn} />}
+                {<PrivateRoute path='/orders' component={Orders} isLoggedIn={props.isLoggedIn} />}
+            </Switch>
+        </main>
+        <Footer />
+    </div>
+)
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoggedIn: props.isLoggedIn,
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.state = {
-            isLoggedIn: nextProps.isLoggedIn
-        }
-    }
-
-    render() {
-        return (
-            <div>                                
-                <Header isLoggedIn={this.state.isLoggedIn}/>
-                <main>
-                    <Switch>
-                        {<Route exact path='/' component={Index} />}
-                        {<Route path='/about' component={Index} />}
-                        {<Route path='/contact' component={Index} />}
-                        {<Route path='/section/:id' component={VisibleSection} />}
-                        {<Route path='/item/:id' component={VisibleItem} />}
-                        {<Route path='/cart' component={Cart} />}
-                        {<Route path='/login' component={LogIn} />}
-                        {<PrivateRoute path='/my-account' component={MyAccount} isLoggedIn={this.state.isLoggedIn} />}
-                        {<PrivateRoute path='/orders' component={Orders} isLoggedIn={this.state.isLoggedIn} />}
-                    </Switch>
-                </main>
-                <Footer />
-            </div>
-        )
-    }
-}
 export default Layout

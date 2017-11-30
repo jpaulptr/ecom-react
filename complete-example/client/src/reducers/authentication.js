@@ -12,7 +12,6 @@ const initialState = {
 }
 
 function app(state = initialState, action) {
-    console.log(action)
     switch (action.type) {
         case LOGIN_BEGIN:
             return beginLogin(state,action);
@@ -32,6 +31,7 @@ export default app;
 // Reducers...
 const beginLogin = (state, action) => Object.assign({}, state, {
     isLoggingIn: true,
+    hasLoginError: false,
 });
 
 const endLogin = (state, action) => Object.assign({}, state, {
@@ -44,6 +44,7 @@ const errorLogin =(state, action) => Object.assign({}, state, {
     isLoggingIn: false,
     isLoggedIn: false,
     user: null,
+    hasLoginError: true,
 });
 
 const logout = (state, action) => Object.assign({}, state, {
