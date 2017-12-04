@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from './form-controls/button';
+import Button from '../form-controls/button';
 
 class LogoutButton extends Component {
     constructor(props) {

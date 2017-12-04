@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Item from '../layout/item'
+import Item from './item'
 import PropTypes from 'prop-types';
 
 // A container component to handle the data lookup from the store/server

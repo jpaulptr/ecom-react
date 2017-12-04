@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchAllOrders } from '../../actions/retail'
-import OrdersContainer from '../presentation/orders';
+import OrderGroup from '../presentation/orders/order-group';
 import { getUserId } from '../../reducers/state-mappers/authentication'
 import { getOrdersByUserId } from '../../reducers/state-mappers/retail'
 
@@ -13,6 +13,6 @@ const mapStateToProps = (state) => {
 const OrdersContainerWraper = connect(
   mapStateToProps,
   { fetchAllOrders },
-)(OrdersContainer);
+)(OrderGroup);
 
 export default OrdersContainerWraper;

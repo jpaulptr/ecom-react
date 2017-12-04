@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from '../presentation/headers/heading';
-import AddButtonContainer from '../container/add-to-cart-contianer';
+import Heading from '../headers/heading';
+import AddButtonContainer from '../../container/add-to-cart-contianer';
 
 const Item = (props) =>
     (

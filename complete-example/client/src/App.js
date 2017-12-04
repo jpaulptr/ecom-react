@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store, history } from './store/store';
 import { ConnectedRouter } from 'react-router-redux';
 
-import Layout from './components/container/layout-container'
+import Layout from './components/layout-container'
 //import Layout from './components/layout/layout'
 
 // Set up the data store and the routing

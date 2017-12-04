@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import LogoutButton from '../presentation/log-out-button';
+import LogoutButton from '../presentation/authentication/log-out-button';
 import { isLoggedIn } from '../../reducers/state-mappers/authentication';
 import {Logout} from '../../actions/authentication';
 

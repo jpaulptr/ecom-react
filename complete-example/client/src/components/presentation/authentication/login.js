@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import SignIn from '../presentation/signin'
+import SignIn from './signin'
 
 class Login extends Component {
     constructor(props) {

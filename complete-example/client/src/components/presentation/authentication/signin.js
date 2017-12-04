@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from './form-controls/button';
-import TextBox from './form-controls/text-box';
+import Button from '../form-controls/button';
+import TextBox from '../form-controls/text-box';
 
 class SignIn extends Component {
     constructor(props) {

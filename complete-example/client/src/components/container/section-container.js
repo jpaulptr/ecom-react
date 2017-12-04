@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
-import { fetchSections } from '../../actions/retail'
-import Section from '../layout/section.js';
+import Section from '../presentation/layout-templates/section.js';
 import { getSectionsById } from '../../reducers/state-mappers/retail'
 
-const mapStateToProps = (state, props) => {
-  return getSectionsById(state, props.match.params.id);
-}
+const mapStateToProps = (state, props) => getSectionsById(state, props.match.params.id) || { title: '', description: '', items: [] };
 
 const VisibleSection = connect(
-  mapStateToProps,
-  { fetchSections }
+  mapStateToProps
 )(Section)
 
 export default VisibleSection
